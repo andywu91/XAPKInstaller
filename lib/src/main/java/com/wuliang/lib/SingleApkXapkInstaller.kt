@@ -17,9 +17,9 @@ class SingleApkXapkInstaller(xapkPath: String, xapkUnzipOutputDir: File)
 
     override fun install(xapkPath: String, context: Context) {
 
-        val files = xapkUnzipOutputDir.listFiles()
+        val files:Array<File>? = xapkUnzipOutputDir.listFiles()
 
-        files.forEach { file ->
+        files?.forEach { file ->
             if ((file.isFile && file.name.endsWith(".apk"))) {
 
                 val filePath = file.absolutePath
