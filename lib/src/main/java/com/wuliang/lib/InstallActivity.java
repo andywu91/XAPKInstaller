@@ -43,6 +43,7 @@ public class InstallActivity extends AppCompatActivity {
     private List<String> apkPaths;
     private ExecutorService installXapkExectuor;
 
+    private PackageInstaller.Session mSession;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -67,7 +68,13 @@ public class InstallActivity extends AppCompatActivity {
         }
 
         if (apkPaths == null || apkPaths.isEmpty()) {
-            Toast.makeText(this, "文件找不到", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "解析apk出错或已取消", Toast.LENGTH_SHORT).show();
+            finish();
+        }
+
+        if (RomUtils.isMeizu() || RomUtils.isVivo()) {
+            Toast.makeText(this,"魅族或VIVO系统用户如遇安装被中止或者安装失败的情况，请尝试联系手机平台客服，或者更换系统内置包安装器再重试",
+                    Toast.LENGTH_SHORT).show();
             finish();
         }
 
@@ -76,7 +83,7 @@ public class InstallActivity extends AppCompatActivity {
 
             try {
 
-                PackageInstaller.Session mSession = initSession();
+                mSession = initSession();
 
                 for (String apkPath : apkPaths) {
                     addApkToInstallSession(apkPath, mSession);
@@ -86,6 +93,7 @@ public class InstallActivity extends AppCompatActivity {
 
             } catch (IOException e) {
                 e.printStackTrace();
+                abandonSession();
             }
 
         });
@@ -137,8 +145,17 @@ public class InstallActivity extends AppCompatActivity {
     }
 
     @TargetApi(21)
+    private void abandonSession() {
+        if (mSession != null) {
+            mSession.abandon();
+            mSession.close();
+        }
+    }
+
+    @TargetApi(21)
     @Override
     protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
         Bundle extras = intent.getExtras();
         if (PACKAGE_INSTALLED_ACTION.equals(intent.getAction())) {
             int status = -100;
@@ -185,6 +202,8 @@ public class InstallActivity extends AppCompatActivity {
         if (installXapkExectuor != null && !installXapkExectuor.isShutdown()) {
             installXapkExectuor.shutdown();
         }
+
+        abandonSession();
 
     }
 }
