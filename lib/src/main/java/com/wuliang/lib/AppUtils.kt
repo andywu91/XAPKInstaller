@@ -57,7 +57,7 @@ private fun getInstallAppIntent(file: File, isNewTask: Boolean,context: Context)
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
         data = Uri.fromFile(file)
     } else {
-        val authority = context.packageName + ".utils.provider"
+        val authority = context.packageName + ".provider"
         data = FileProvider.getUriForFile(context, authority, file)
         intent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
     }
