@@ -3,6 +3,9 @@
 
     <application>
 
+        <activity android:name=".InstallActivity"
+            android:launchMode="singleTop"/>
+
         <provider
             android:name="com.wuliang.lib.UtilsFileProvider"
             android:authorities="${applicationId}.utilcode.provider"
