@@ -11,12 +11,12 @@
 在你的根`build.gradle`中添加jitpack存储库
 
 ```groovy
-	allprojects {
-		repositories {
-			...
-			maven { url 'https://jitpack.io' }
-		}
+allprojects {
+	repositories {
+		...
+		maven { url 'https://jitpack.io' }
 	}
+}
 ```
 
 在`build.gradle`添加如下代码:

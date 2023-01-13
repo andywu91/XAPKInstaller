@@ -11,12 +11,12 @@ A library for install xapk(single apk with obb) or xapk(multiple apk with obb).
 Add it in your root build.gradle at the end of repositories:
 
 ```groovy
-	allprojects {
-		repositories {
-			...
-			maven { url 'https://jitpack.io' }
-		}
+allprojects {
+	repositories {
+		...
+		maven { url 'https://jitpack.io' }
 	}
+}
 ```
 
 Add the dependency in your `build.gradle`:
