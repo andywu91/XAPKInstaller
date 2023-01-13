@@ -14,6 +14,7 @@ In your `build.gradle`:
 dependencies {
   implementation 'com.github.andywu91:XAPKInstaller:1.0.0'
 }
+```
 
 ## Usage
 you can just check code in app which replace downloadUrl to your own xapk downloadUrl,and then experience it
@@ -22,7 +23,7 @@ use [zt-zip](<https://github.com/zeroturnaround/zt-zip>) for unzip xapk,thanks
 
 [中文说明](./README_zh.md)
 
-### update ###
+## update
 
 Because Meizu and vivo have modified the system installation-related classes,xapk(split apk) cannot be successfully installed, so check it and do nothing if os is flyme or funtouch os.
 
