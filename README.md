@@ -1,8 +1,22 @@
 # README #
 
-### XAPKInstaller ###
+# XAPKInstaller
+
+[![](https://jitpack.io/v/andywu91/XAPKInstaller.svg)](https://jitpack.io/#andywu91/XAPKInstaller)
 
 A library for install xapk(single apk with obb) or xapk(multiple apk with obb).
+
+## Getting started
+
+In your `build.gradle`:
+
+```groovy
+dependencies {
+  implementation 'com.github.andywu91:XAPKInstaller:1.0.0'
+}
+
+## Usage
+you can just check code in app which replace downloadUrl to your own xapk downloadUrl,and then experience it
 
 use [zt-zip](<https://github.com/zeroturnaround/zt-zip>) for unzip xapk,thanks
 

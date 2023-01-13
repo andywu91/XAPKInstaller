@@ -1,8 +1,22 @@
 # README
 
-### XAPKInstaller
+# XAPKInstaller
+
+[![](https://jitpack.io/v/andywu91/XAPKInstaller.svg)](https://jitpack.io/#andywu91/XAPKInstaller)
 
 实现安装xapk(单apk加上obb资源文件)或者xapk（多apk）
+
+## 开始使用
+
+在`build.gradle`添加如下代码:
+
+```groovy
+dependencies {
+  implementation 'com.github.andywu91:XAPKInstaller:1.0.0'
+}
+
+## Usage
+你可以将app代码里的downloadUrl替换成自己的xapk的downloadUrl,即可体验此项目
 
 使用 [zt-zip](<https://github.com/zeroturnaround/zt-zip>) 来解压xapk,感谢
 
