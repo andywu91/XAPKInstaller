@@ -8,6 +8,17 @@
 
 ## 开始使用
 
+在你的根`build.gradle`中添加jitpack存储库
+
+```groovy
+	allprojects {
+		repositories {
+			...
+			maven { url 'https://jitpack.io' }
+		}
+	}
+```
+
 在`build.gradle`添加如下代码:
 
 ```groovy
@@ -16,8 +27,11 @@ dependencies {
 }
 ```
 
-## Usage
+## 使用说明
+
 你可以将app代码里的downloadUrl替换成自己的xapk的downloadUrl,即可体验此项目
+
+## 感谢
 
 使用 [zt-zip](<https://github.com/zeroturnaround/zt-zip>) 来解压xapk,感谢
 

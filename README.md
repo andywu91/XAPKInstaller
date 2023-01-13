@@ -8,7 +8,18 @@ A library for install xapk(single apk with obb) or xapk(multiple apk with obb).
 
 ## Getting started
 
-In your `build.gradle`:
+Add it in your root build.gradle at the end of repositories:
+
+```groovy
+	allprojects {
+		repositories {
+			...
+			maven { url 'https://jitpack.io' }
+		}
+	}
+```
+
+Add the dependency in your `build.gradle`:
 
 ```groovy
 dependencies {
@@ -18,6 +29,8 @@ dependencies {
 
 ## Usage
 you can just check code in app which replace downloadUrl to your own xapk downloadUrl,and then experience it
+
+## Thanks
 
 use [zt-zip](<https://github.com/zeroturnaround/zt-zip>) for unzip xapk,thanks
 
