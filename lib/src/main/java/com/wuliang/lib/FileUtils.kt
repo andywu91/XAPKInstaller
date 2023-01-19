@@ -7,7 +7,7 @@ import java.io.File
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/05/03
- *     desc  : utils about file
+ *     desc  : utils about file,just copy from https://github.com/Blankj/AndroidUtilCode
  * </pre>
  */
 

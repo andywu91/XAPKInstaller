@@ -18,7 +18,7 @@ import java.util.Properties;
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2018/07/04
- *     desc  : utils about rom
+ *     desc  : utils about rom,just copy from https://github.com/Blankj/AndroidUtilCode
  * </pre>
  */
 public final class RomUtils {

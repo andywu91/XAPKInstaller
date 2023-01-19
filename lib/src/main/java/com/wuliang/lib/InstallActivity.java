@@ -36,10 +36,8 @@ public class InstallActivity extends AppCompatActivity {
     private static final String PACKAGE_INSTALLED_ACTION =
             "com.wuliang.common.SESSION_API_PACKAGE_INSTALLED";
 
-    public static final String KEY_XAPK_PATH = "xapk_path";
     public static final String KEY_APK_PATHS = "apk_path";
 
-    private String xapkPath;
     private List<String> apkPaths;
     private ExecutorService installXapkExectuor;
 
@@ -48,16 +46,13 @@ public class InstallActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_install);
 
         initData();
-
         installXapk();
     }
 
     public void initData() {
-        xapkPath = getIntent().getStringExtra(KEY_XAPK_PATH);
         apkPaths = getIntent().getStringArrayListExtra(KEY_APK_PATHS);
     }
 
@@ -80,9 +75,7 @@ public class InstallActivity extends AppCompatActivity {
 
         installXapkExectuor = Executors.newSingleThreadExecutor();
         installXapkExectuor.execute(() -> {
-
             try {
-
                 mSession = initSession();
 
                 for (String apkPath : apkPaths) {
@@ -90,24 +83,21 @@ public class InstallActivity extends AppCompatActivity {
                 }
 
                 commitSession(mSession);
-
             } catch (IOException e) {
                 e.printStackTrace();
                 abandonSession();
             }
-
         });
-
-
     }
 
     @TargetApi(21)
     private PackageInstaller.Session initSession() throws IOException {
-        PackageInstaller.Session session = null;
+        PackageInstaller.Session session;
         PackageInstaller packageInstaller = getPackageManager().getPackageInstaller();
         PackageInstaller.SessionParams params = new PackageInstaller.SessionParams(
                 PackageInstaller.SessionParams.MODE_FULL_INSTALL);
-        int sessionId = 0;
+
+        int sessionId;
         sessionId = packageInstaller.createSession(params);
         session = packageInstaller.openSession(sessionId);
 
@@ -131,9 +121,7 @@ public class InstallActivity extends AppCompatActivity {
 
     @TargetApi(21)
     private void commitSession(PackageInstaller.Session session) {
-
         // Create an install status receiver.
-
         Intent intent = new Intent(this, InstallActivity.class);
         intent.setAction(PACKAGE_INSTALLED_ACTION);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
@@ -141,7 +129,6 @@ public class InstallActivity extends AppCompatActivity {
 
         // Commit the session (this will start the installation workflow).
         session.commit(statusReceiver);
-
     }
 
     @TargetApi(21)
@@ -198,12 +185,9 @@ public class InstallActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
         if (installXapkExectuor != null && !installXapkExectuor.isShutdown()) {
             installXapkExectuor.shutdown();
         }
-
         abandonSession();
-
     }
 }

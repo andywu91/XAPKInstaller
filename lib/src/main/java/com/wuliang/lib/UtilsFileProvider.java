@@ -7,9 +7,7 @@ import androidx.core.content.FileProvider;
  *     author: blankj
  *     blog  : http://blankj.com
  *     time  : 2020/03/19
- *     desc  :
+ *     desc  : just copy from https://github.com/Blankj/AndroidUtilCode and modify for file provider
  * </pre>
  */
-public class UtilsFileProvider extends FileProvider {
-
-}
+public class UtilsFileProvider extends FileProvider { }

@@ -1,6 +1,5 @@
 package com.wuliang.lib
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -13,7 +12,7 @@ import java.io.File
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2016/08/02
- *     desc  : App相关工具类
+ *     desc  : app utils,just copy from https://github.com/Blankj/AndroidUtilCode
  * </pre>
  */
 
