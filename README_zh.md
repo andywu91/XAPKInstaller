@@ -39,4 +39,6 @@ dependencies {
 
 因为魅族和vivo对系统安装相关的类进行了修改，导致split apk的xapk无法安装成功，故进行检查，如果是flyme或者funtouch os则不做处理。
 
+根据#issue 3，如果你使用miui,你需要关闭设置里的miui优化，否则安装会失败。
+
 另外可以参考文章：https://www.jianshu.com/p/580b61ee7aee
