@@ -7,7 +7,7 @@ android {
     compileSdkVersion = 28
     defaultConfig {
         applicationId = "com.wuliang.xapkinstaller"
-        minSdkVersion = 14
+        minSdkVersion 14
         targetSdkVersion = 28
         versionCode = 1
         versionName = "1.0"
