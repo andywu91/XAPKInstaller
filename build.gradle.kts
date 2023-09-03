@@ -1,16 +1,12 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
-ext{
-    appcompat_version = "1.1.0"
-}
 
 
 buildscript {
-    ext.kotlin_version = "1.5.20"
+    val kotlin_version = "1.5.20"
     repositories {
         google()
-        maven{
-            url = "https://mirrors.tencent.com/nexus/repository/maven-public/"
-        }
+        maven("https://mirrors.tencent.com/nexus/repository/maven-public/")
+
         mavenCentral()
     }
     dependencies {
@@ -24,13 +20,12 @@ buildscript {
 allprojects {
     repositories {
         google()
-        maven{
-            url = "https://mirrors.tencent.com/nexus/repository/maven-public/"
-        }
+        maven("https://mirrors.tencent.com/nexus/repository/maven-public/")
+
         mavenCentral()
     }
 }
 
-task(clean(type: Delete) {
-    delete = rootProject.buildDir
-})
+//task(clean(type: Delete) {
+//    delete = rootProject.buildDir
+//})
