@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.app.ProgressDialog
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
@@ -42,11 +43,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun checkAndInstall() {
+        val writeExternalStorageAllowed = ActivityCompat.checkSelfPermission(
+            this,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+        ) == PackageManager.PERMISSION_DENIED
+
         if (Build.VERSION.SDK_INT >= 26) {//8.0
-            //来判断应用是否有权限安装apk
+            //判断应用是否有权限安装apk
             val installAllowed = packageManager.canRequestPackageInstalls()
+
             //有权限
-            if (installAllowed) {
+            if (installAllowed && writeExternalStorageAllowed) {
                 //安装apk
                 install()
             } else {
@@ -54,15 +61,26 @@ class MainActivity : AppCompatActivity() {
                 ActivityCompat.requestPermissions(
                     this,
                     arrayOf(
-                        Manifest.permission.REQUEST_INSTALL_PACKAGES,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.REQUEST_INSTALL_PACKAGES
                     ),
                     PERMISSION_REQUEST_CODE
                 )
             }
         } else {//8.0以下
-            //安装apk
-            install()
+            if (!writeExternalStorageAllowed) {
+                ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf(
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE
+                    ),
+                    PERMISSION_REQUEST_CODE
+                )
+            } else {
+                //安装apk
+                install()
+            }
+
         }
     }
 
@@ -78,17 +96,21 @@ class MainActivity : AppCompatActivity() {
 
         grantResults.forEachIndexed { index, grantResult ->
             if (grantResult != PackageManager.PERMISSION_GRANTED) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    if (Manifest.permission.REQUEST_INSTALL_PACKAGES == permissions[index]) {
+                if (Manifest.permission.WRITE_EXTERNAL_STORAGE == permissions[index]) {
+                    Toast.makeText(this, "权限不足,请授予存储权限！", Toast.LENGTH_SHORT).show();
+                } else if (Manifest.permission.REQUEST_INSTALL_PACKAGES == permissions[index]) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                         //引导用户去手动开启权限
-                        val intent = Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES)
+                        val uri = Uri.parse("package:" + this.packageName)
+                        val intent = Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES, uri)
                         startActivityForResult(
                             intent,
                             ACTION_MANAGE_UNKNOWN_APP_SOURCES_REQUEST_CODE
                         )
+                    }else{
+                        Toast.makeText(this, "权限不足，请打开安装应用权限！", Toast.LENGTH_SHORT).show();
                     }
                 }
-                Toast.makeText(this, "权限不足！", Toast.LENGTH_SHORT).show();
                 return
             }
         }
@@ -104,7 +126,7 @@ class MainActivity : AppCompatActivity() {
             if (packageManager.canRequestPackageInstalls()) {
                 install()
             } else {
-                Toast.makeText(this, "权限不足！", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "权限不足，请打开安装应用权限！", Toast.LENGTH_SHORT).show();
             }
         }
     }
