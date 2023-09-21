@@ -5,14 +5,14 @@ plugins{
 }
 
 group = "com.wuliang.lib"
-version = "1.0.0"
+version = "1.0.1"
 
 android {
-    compileSdkVersion = 28
+    compileSdkVersion(28)
 
     defaultConfig {
-        minSdkVersion = 14
-        targetSdkVersion = 28
+        minSdkVersion(14)
+        targetSdkVersion(28)
         versionCode = 1
         versionName = "1.0"
 
@@ -21,46 +21,41 @@ android {
     }
 
     buildTypes {
-        release {
-            minifyEnabled = false
+        val release by getting {
+            isMinifyEnabled = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
+
     buildToolsVersion = "28.0.3"
 
 }
 
-def appcompat_version = "1.1.0"
-def kotlin_version = "1.5.20"
 
 dependencies {
-    implementation (fileTree(dir: "libs", include: ["*.jar"]))
+//    implementation (fileTree(dir to "libs", include to ["*.jar"]))
 
-    implementation( "androidx.appcompat:appcompat:$appcompat_version")
+    implementation( "androidx.appcompat:appcompat:$appCompatVersion")
 
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion")
     testImplementation( "junit:junit:4.12")
 
     implementation("org.zeroturnaround:zt-zip:1.13")
 }
 
-// Because the components are created only during the afterEvaluate phase, you must
-// configure your publications using the afterEvaluate() lifecycle method.
 afterEvaluate {
+
     publishing {
         publications {
             // Creates a Maven publication called "release".
-            release(MavenPublication) {
+            create<MavenPublication>("release"){
                 // Applies the component for the release build variant.
-                from(components.release)
+                from(components["release"])
 
                 // You can then customize attributes of the publication as shown below.
                 artifactId = "xapkinstaller"
             }
         }
     }
+
 }
