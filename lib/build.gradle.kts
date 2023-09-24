@@ -26,9 +26,6 @@ android {
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
-
-    buildToolsVersion = "28.0.3"
-
 }
 
 
