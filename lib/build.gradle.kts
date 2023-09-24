@@ -8,11 +8,11 @@ group = "com.wuliang.lib"
 version = "1.0.1"
 
 android {
-    compileSdkVersion(28)
+    compileSdk = 28
 
     defaultConfig {
-        minSdkVersion(14)
-        targetSdkVersion(28)
+        minSdk = 14
+        targetSdk = 28
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
